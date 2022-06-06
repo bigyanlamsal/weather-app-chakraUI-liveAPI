@@ -2,9 +2,11 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Flex, Grid, Input, Text, Icon, Image } from "@chakra-ui/react";
 import { IoLocation } from "react-icons/io5";
 import cloudy from "./assets/cloudy.svg";
+import { useState } from "react";
+import { CUIAutoComplete } from "chakra-ui-autocomplete";
 
 import * as React from "react";
-import { TIMEOUT } from "dns";
+import axios from "axios";
 
 const LeftSideBar = ({ temp }: any) => {
   let date = new Date();
@@ -23,6 +25,25 @@ const LeftSideBar = ({ temp }: any) => {
     "Saturday",
   ];
 
+  const [data, setData] = useState({
+    name: "",
+    main: {
+      temp: "",
+    },
+  });
+
+  const [location, setLocation] = useState("");
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=7b31ccd4c0b391c82419ea24f7e45ca9`;
+  const searchLocation = (event: any) => {
+    if (event.key === "Enter") {
+      axios.get(url).then((response) => {
+        setData(response.data);
+      });
+      setLocation("");
+    }
+  };
+
   return (
     <Grid p="8" width="20%" flexDirection="column">
       <Flex justify="space-between" flexDirection="column">
@@ -30,8 +51,10 @@ const LeftSideBar = ({ temp }: any) => {
           <Input
             background="gray.100"
             opacity="0.5"
-            p="0 0 0 40px"
+            p="0 0 0 20px"
             placeholder="Basic usage"
+            onChange={(event) => setLocation(event.target.value)}
+            onKeyPress={searchLocation}
           />
 
           <SearchIcon
@@ -45,7 +68,7 @@ const LeftSideBar = ({ temp }: any) => {
           <Image src={cloudy} w="100%" />
           <Box>
             <Text color="#259AA2" fontSize="35px" fontWeight="bold">
-              {temp.toFixed()}
+              {data.main.temp}
               <sup>o</sup>C
             </Text>
             <Text color="black" fontWeight="bold" fontSize="20px" p="5px 0 0 0">
@@ -68,7 +91,7 @@ const LeftSideBar = ({ temp }: any) => {
             fontSize="20px"
             wordBreak="break-word"
           >
-            <Icon as={IoLocation} /> Kathmandu, Nepal
+            <Icon as={IoLocation} /> {data.name}
           </Text>
         </Box>
       </Flex>

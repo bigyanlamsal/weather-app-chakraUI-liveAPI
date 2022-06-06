@@ -91,9 +91,9 @@ const Chakra = () => {
 
   const getStatusColor = (data: any) => {
     switch (true) {
-      case data >= 70:
+      case data >= 61:
         return "red";
-      case data < 70:
+      case data < 61:
         return "blue";
       default:
         return "skyblue";
@@ -108,13 +108,42 @@ const Chakra = () => {
           <TopNavbar />
           //Weekly weather update UI part
           <Grid templateColumns="repeat(7, 1fr)" gap={6}>
-            <Cards image={cloudy} temp={20} day={"Mon"} selected />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
-            <Cards image={cloudy} temp={20} day={"Tue"} />
+            <Cards
+              image={cloudy}
+              temp={data.hourly.temperature_2m[1]}
+              day={"Mon"}
+              selected
+            />
+            <Cards
+              image={sunny}
+              temp={data.hourly.temperature_2m[2]}
+              day={"Tue"}
+            />
+            <Cards
+              image={rainny}
+              temp={data.hourly.temperature_2m[3]}
+              day={"Wed"}
+            />
+            <Cards
+              image={cloudy}
+              temp={data.hourly.temperature_2m[4]}
+              day={"Thurs"}
+            />
+            <Cards
+              image={rainny}
+              temp={data.hourly.temperature_2m[5]}
+              day={"Fri"}
+            />
+            <Cards
+              image={sunny}
+              temp={data.hourly.temperature_2m[6]}
+              day={"Sat"}
+            />
+            <Cards
+              image={cloudy}
+              temp={data.hourly.temperature_2m[0]}
+              day={"Sun"}
+            />
           </Grid>
           <Text
             color="gray"
