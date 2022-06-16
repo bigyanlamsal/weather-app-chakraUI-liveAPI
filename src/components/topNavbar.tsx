@@ -1,7 +1,18 @@
 import * as React from "react";
-import { Flex, Select, Avatar, Box, GridItem, Text } from "@chakra-ui/react";
+import {
+  Flex,
+  Select,
+  Avatar,
+  Box,
+  GridItem,
+  Text,
+  Button,
+  useColorMode,
+} from "@chakra-ui/react";
 
 const TopNavbar = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <Flex justifyContent="space-between">
       <GridItem h="20">
@@ -30,7 +41,7 @@ const TopNavbar = () => {
         {/* </GridItem>  */}
 
         {/* <GridItem w='150%' h='12' mt="-2" ml="-20" bg="white"> */}
-        <Box w="150%" h="39px" bg="white" p="1" borderRadius="6px">
+        <Box w="150%" h="39px" bg="" p="1" borderRadius="6px">
           <Flex justify="space-between">
             <Avatar size="sm" />
             <Select placeholder="Diagonal Tech " border="none">
@@ -38,6 +49,9 @@ const TopNavbar = () => {
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
             </Select>
+            <Button onClick={toggleColorMode}>
+              Toggle {colorMode === "light" ? "Dark" : "Light"}
+            </Button>
           </Flex>
         </Box>
       </Flex>

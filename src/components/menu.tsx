@@ -8,6 +8,7 @@ import sunrise from "./assets/sunrise.svg";
 import sunset from "./assets/sunset.svg";
 import { IoLocation } from "react-icons/io5";
 import moment from "moment";
+// import Timer from "./hooks/useTimer";
 import {
   Image,
   Grid,
@@ -17,6 +18,8 @@ import {
   GridItem,
   Icon,
   Flex,
+  Button,
+  useColorMode,
 } from "@chakra-ui/react";
 import LeftSideBar from "./LeftSidebar";
 import Cards from "./Cards";
@@ -103,16 +106,14 @@ const Chakra = () => {
   return (
     <Stack direction="row">
       <LeftSideBar temp={data2.main.temp} />
-      <Grid width="80%" bg="gray.100" overflow="scroll">
+      <Grid width="80%" bg="" overflow="scroll">
         <Stack direction="column" p="8">
           <TopNavbar />
-          //Weekly weather update UI part
           <Grid templateColumns="repeat(7, 1fr)" gap={6}>
             <Cards
               image={cloudy}
               temp={data.hourly.temperature_2m[1]}
               day={"Mon"}
-              selected
             />
             <Cards
               image={sunny}
@@ -146,7 +147,7 @@ const Chakra = () => {
             />
           </Grid>
           <Text
-            color="gray"
+            color=""
             fontSize={26}
             p="20px 0 20px 0"
             fontWeight="bold"
